@@ -2,10 +2,17 @@
 terraform tests
 
 ## Basics
-### Components
+### Terraform Components
 * Terraform is an executable
 * Terraform file (s)
 * Terraform state file
+
+### Terraform template parts
+
+* variable (used to store information)
+* provider (ex: AWS, Azure,...)
+* resource (ex: VM)
+* output   (value to output for this template)
 
 ## Resources
 
