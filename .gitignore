@@ -1,0 +1,5 @@
+*.exe
+lock.json
+*.tfstate*
+versions.tf
+*.tfvars
