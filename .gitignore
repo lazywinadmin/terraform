@@ -3,3 +3,6 @@ lock.json
 *.tfstate*
 versions.tf
 *.tfvars
+.terraform
+*.tfstate
+*.tfstate.backup
