@@ -39,3 +39,9 @@ For example, in the case of Azure, you will need to follow this: #  https://www.
 * [Terraform.io](Terraform.io)
 * Terraform on azure
   * Microsoft documentation: [http://aka.ms/tfhub](http://aka.ms/tfhub)
+
+## Ideas of things to tests
+
+* Deploy AD Domain Controller, install AdsiPS and test commands
+* Chef Automate env with a few news nodes, few cookbooks, Azure Image built with Packer
+* K8s - Windows Containers
