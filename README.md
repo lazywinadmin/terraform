@@ -36,6 +36,12 @@ For example, in the case of Azure, you will need to follow this: #  https://www.
 
 ## Other Resources
 
+### Examples
+
+* Azure
+  * https://github.com/Azure/terraform/tree/master/quickstart
+
+### Documentation
 * [Terraform.io](Terraform.io)
 * Terraform on azure
   * Microsoft documentation: [http://aka.ms/tfhub](http://aka.ms/tfhub)
