@@ -1,9 +1,4 @@
-terraform {
-    backend "azurerm" {}
-}
-
 provider "azurerm" {
-    version = "~>1.66"
     subscription_id = "${var.azure_subscription_id}"
     client_id = "${var.azure_client_id}"
     client_secret = "${var.azure_client_secret}"
@@ -38,8 +33,8 @@ resource "azurerm_kubernetes_cluster" "test" {
   }
 
   service_principal {
-    client_id     = "00000000-0000-0000-0000-000000000000"
-    client_secret = "00000000000000000000000000000000"
+    client_id     = "${var.k8s_client_id}"
+    client_secret = "${var.k8s_client_secret}"
   }
 
   tags = {
