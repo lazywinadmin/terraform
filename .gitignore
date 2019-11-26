@@ -6,3 +6,4 @@ versions.tf
 .terraform
 *.tfstate
 *.tfstate.backup
+*.pub
