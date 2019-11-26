@@ -114,18 +114,19 @@ resource "azurerm_virtual_machine" "main" {
     }
   }
 
+  connection {
+    host = "${azurerm_public_ip.example.ip_address}"
+    type = "winrm"
+    port = 5985
+    https = false
+    timeout = "2m"
+    user = "${var.adminuser}"
+    password = "${var.adminpassw}"
+    insecure = "true"
+    use_ntlm = "true"
+  }
+
   provisioner "remote-exec" {
-    connection {
-      host = "${azurerm_public_ip.example.ip_address}"
-      type = "winrm"
-      port = 5985
-      https = false
-      timeout = "5m"
-      user = "${var.adminuser}"
-      password = "${var.adminpassw}"
-      insecure = "true"
-      use_ntlm = "true"
-    }
     inline = [
       "powershell.exe -ExecutionPolicy Unrestricted -Command {Install-WindowsFeature -name Web-Server -IncludeManagementTools}",
     ]
