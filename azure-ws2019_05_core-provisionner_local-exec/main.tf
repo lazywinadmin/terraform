@@ -50,7 +50,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_storage_account" "test" {
-  name                      = "helloworld94404"
+  name                      = "azstoracc94404"
   resource_group_name       = azurerm_resource_group.main.name
   location                  = azurerm_resource_group.main.location
   account_tier              = "Standard"
@@ -127,8 +127,10 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   provisioner "local-exec" {
-    command ="powershell.exe -ExecutionPolicy Unrestricted -Comm {Install-WindowsFeature -name Web-Server -IncludeManagementTools}"
+    command = "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
+    interpreter = ["PowerShell","-ExecutionPolicy Unrestricted","-Command"]
   }
+  #Error: Error running command 'Install-WindowsFeature -name Web-Server -IncludeManagementTools': exec: "PowerShell": executable file not found in $PATH. Output:
 }
 
 output "pip" {
