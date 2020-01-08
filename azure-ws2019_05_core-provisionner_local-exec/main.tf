@@ -1,8 +1,8 @@
 provider "azurerm" {
-    subscription_id = "${var.azure_subscription_id}"
-    client_id = "${var.azure_client_id}"
-    client_secret = "${var.azure_client_secret}"
-    tenant_id = "${var.azure_tenant_id}"
+    subscription_id = var.azure_subscription_id
+    client_id = var.azure_client_id
+    client_secret = var.azure_client_secret
+    tenant_id = var.azure_tenant_id
 }
 
 variable "prefix" {
@@ -25,56 +25,56 @@ resource "azurerm_resource_group" "main" {
 resource "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
-  location            = "${azurerm_resource_group.main.location}"
-  resource_group_name = "${azurerm_resource_group.main.name}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
 }
 
 resource "azurerm_subnet" "internal" {
   name                 = "internal"
-  resource_group_name  = "${azurerm_resource_group.main.name}"
-  virtual_network_name = "${azurerm_virtual_network.main.name}"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
   address_prefix       = "10.0.2.0/24"
 }
 
 resource "azurerm_network_interface" "main" {
   name                = "${var.prefix}-nic"
-  location            = "${azurerm_resource_group.main.location}"
-  resource_group_name = "${azurerm_resource_group.main.name}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
 
   ip_configuration {
     name                          = "testconfiguration1"
-    subnet_id                     = "${azurerm_subnet.internal.id}"
+    subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id         = "${azurerm_public_ip.example.id}"
+    public_ip_address_id         = azurerm_public_ip.example.id
   }
 }
 
 resource "azurerm_storage_account" "test" {
   name                      = "helloworld94404"
-  resource_group_name       = "${azurerm_resource_group.main.name}"
-  location                  = "${azurerm_resource_group.main.location}"
+  resource_group_name       = azurerm_resource_group.main.name
+  location                  = azurerm_resource_group.main.location
   account_tier              = "Standard"
   account_replication_type  = "GRS"
 }
 
 resource "azurerm_storage_container" "test" {
   name                  = "helloworld"
-  storage_account_name  = "${azurerm_storage_account.test.name}"
+  storage_account_name  = azurerm_storage_account.test.name
   container_access_type = "private"
 }
 
 resource "azurerm_public_ip" "example" {
   name                = "${var.prefix}-publicip"
-  resource_group_name = "${azurerm_resource_group.main.name}"
-  location            = "${azurerm_resource_group.main.location}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
   allocation_method   = "Static"
 }
 
 resource "azurerm_virtual_machine" "main" {
   name                  = "${var.prefix}-vm"
-  location              = "${azurerm_resource_group.main.location}"
-  resource_group_name   = "${azurerm_resource_group.main.name}"
-  network_interface_ids = ["${azurerm_network_interface.main.id}"]
+  location              = azurerm_resource_group.main.location
+  resource_group_name   = azurerm_resource_group.main.name
+  network_interface_ids = [azurerm_network_interface.main.id]
   vm_size               = "Standard_A0"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
@@ -99,8 +99,8 @@ resource "azurerm_virtual_machine" "main" {
   }
   os_profile {
     computer_name  = "myserver"
-    admin_username = "${var.adminuser}"
-    admin_password = "${var.adminpassw}"
+    admin_username = var.adminuser
+    admin_password = var.adminpassw
   }
 
   # OS customization
@@ -132,5 +132,5 @@ resource "azurerm_virtual_machine" "main" {
 }
 
 output "pip" {
-  value = ["${azurerm_public_ip.example.ip_address}"]
+  value = [azurerm_public_ip.example.ip_address]
 }
