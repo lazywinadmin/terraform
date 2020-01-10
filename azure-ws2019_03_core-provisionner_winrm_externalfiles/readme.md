@@ -1,4 +1,4 @@
-# Terraform - Create a new Ubuntu machine
+# Terraform - Create a new Windows Server 2019 with remote (winrm) provisionner
 
 ## Step 1 - Authenticate
 
