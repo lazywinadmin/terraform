@@ -7,3 +7,4 @@ versions.tf
 *.tfstate
 *.tfstate.backup
 *.pub
+*.tfplan
