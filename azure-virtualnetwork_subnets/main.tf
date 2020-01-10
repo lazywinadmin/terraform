@@ -48,7 +48,8 @@ provider "azurerm" {
 #############################################################################
 
 module "vnet-main" {
-  source              = "azure/vnet/azurerm"
+  source              = "Azure/vnet/azurerm"
+  version             = "1.2.0"
   resource_group_name = var.resource_group_name
   location            = var.location
   vnet_name           = var.resource_group_name
@@ -60,7 +61,6 @@ module "vnet-main" {
   tags = {
     environment = "dev"
     costcenter  = "it"
-
   }
 }
 
