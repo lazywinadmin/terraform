@@ -38,12 +38,12 @@ resource "azurerm_automation_schedule" "example" {
   name                    = "fx-automation-schedule"
   resource_group_name     = azurerm_resource_group.example.name
   automation_account_name = azurerm_automation_account.example.name
-  frequency               = "Week"
-  interval                = 1
+  frequency               = "Hour"
+  #interval                = 1
   timezone                = "Central Europe Standard Time"
-  start_time              = "2020-04-15T18:00:15+02:00"
+  #start_time              = "2020-04-15T18:00:15+02:00"
   description             = "This is an example schedule"
-  week_days               = ["Friday"]
+  #week_days               = ["Friday"]
 }
 
 resource "azurerm_automation_job_schedule" "example" {
