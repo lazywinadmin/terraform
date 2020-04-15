@@ -1,0 +1,37 @@
+{
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/publicIPAddresses"
+              },
+              {
+                "field": "Microsoft.Network/publicIPAddresses/ipConfiguration.id",
+                "MatchInsensitively": "kubernetes"
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/publicIPAddresses"
+              },
+              {
+                "field": "name",
+                "MatchInsensitively": "kubernetes-"
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "audit"
+      }
+    },
+    "parameters": {}
+  }
