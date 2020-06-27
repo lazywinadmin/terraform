@@ -3,7 +3,7 @@ data "local_file" "example" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "test-aamodule"
+  name     = "test-aamodule2"
   location = "west us"
 }
 
@@ -73,22 +73,63 @@ resource "azurerm_storage_container" "example" {
   container_access_type = "private"
 }
 
-resource "azurerm_storage_blob" "moduleupload" {
-  name                   = "mymodule.zip"
-  storage_account_name   = azurerm_storage_account.example.name
-  storage_container_name = azurerm_storage_container.example.name
-  type                   = "Block"
-  source                 = "./modules/mymodule.zip"
+# Upload file
+resource "azurerm_storage_blob" "example" {
+ name                   = "mymodule.zip"
+ storage_account_name   = azurerm_storage_account.example.name
+ storage_container_name = azurerm_storage_container.example.name
+ type                   = "Block"
+ source                 = "./modules/mymodule.zip"
 }
 
-resource "azurerm_automation_module" "localmodule" {
+# Generate SAS
+data "azurerm_storage_account_sas" "example" {
+  connection_string = azurerm_storage_account.example.primary_connection_string
+  https_only        = true
+
+  resource_types {
+    service   = true
+    container = true
+    object    = true
+  }
+
+  services {
+    blob  = true
+    queue = false
+    table = false
+    file  = false
+  }
+
+  start = timestamp()
+  # Increment by '1'
+  expiry = timeadd(timestamp(), "10s")
+
+  permissions {
+    read    = true
+    write   = false
+    delete  = false
+    list    = false
+    add     = false
+    create  = false
+    update  = false
+    process = false
+  }
+}
+
+
+resource "azurerm_automation_module" "mymodule" {
   name                    = "mymodule"
   resource_group_name     = azurerm_resource_group.example.name
   automation_account_name = azurerm_automation_account.example.name
 
   module_link {
-    uri = azurerm_storage_blob.moduleupload.url
+    uri = format("%s%s",azurerm_storage_blob.example.url,data.azurerm_storage_account_sas.example.sas)
   }
 
-  depends_on=[azurerm_storage_blob.moduleupload]
+  depends_on=[azurerm_storage_blob.example]
+
+  timeouts {
+    create = "60m"
+    delete = "2h"
+  }
 }
