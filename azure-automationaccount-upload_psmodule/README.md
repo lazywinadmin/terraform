@@ -1,5 +1,8 @@
 
 # Azure Automation - Uploading a PowerShell module
+
+See [blogpost](https://lazywinadmin.com/2020/08/terraform_azure-automationacc_psmoduleupload.html)
+
 ## Summary
 
 This example:
