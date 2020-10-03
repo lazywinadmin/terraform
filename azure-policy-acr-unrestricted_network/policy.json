@@ -1,0 +1,65 @@
+{
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.ContainerRegistry/registries"
+          },
+          {
+            "anyof": [
+              {
+                    "field": "Microsoft.ContainerRegistry/registries/networkRuleSet.defaultAction",
+                    "equals": "Allow"
+              },
+              {
+                "allOf": [
+                  {
+                    "not": {
+                      "count": {
+                        "field": "Microsoft.ContainerRegistry/registries/networkRuleSet.ipRules[*]"
+                      },
+                      "equals": 0
+                    }
+                  },
+                  {
+                    "not": {
+                      "field": "Microsoft.ContainerRegistry/registries/networkRuleSet.ipRules[*].value",
+                      "in": "[parameters('allowedAddressRanges')]"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Disabled",
+          "Deny"
+        ],
+        "defaultValue": "Deny"
+      },
+      "allowedAddressRanges": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Address Range",
+          "description": "list of allowed ip address ranges (Cidr '10.0.0.0/8' or individual ip '1.2.3.4')"
+        },
+        "defaultValue": []
+      }
+    }
+  }
