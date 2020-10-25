@@ -6,6 +6,9 @@ See [blogpost](https://lazywinadmin.com/2020/08/terraform_azure-automationacc_ps
 ## Summary
 
 This example:
+* create resource group
+* create automation account
+* create automation runbook
 * create a Storage Account,
 * upload the zip file of the PowerShell module,
 * create a SAS Key
@@ -14,9 +17,9 @@ This example:
 We are authenticating using a SPN, see requirements below.
 
 ## Requirements
-## Authentication using a Service Principal Name account (SPN)
+### Authentication using a Service Principal Name account (SPN)
 
-Create and Grant permission to the SPN
+Create and Grant appropriate permissions to the SPN, here for example 'Contributor'
 
 ```
 az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<subID>"
