@@ -1,0 +1,33 @@
+{
+  "mode": "Indexed",
+  "policyRule": {
+    "if": {
+      "field": "type",
+      "equals": "Microsoft.ServiceBus/namespaces"
+    },
+    "then": {
+      "effect": "[parameters('effect')]",
+      "details": {
+        "type": "Microsoft.ServiceBus/namespaces/virtualNetworkRules",
+        "existenceCondition": {
+          "field": "Microsoft.ServiceBus/namespaces/virtualNetworkRules/virtualNetworkSubnetId",
+          "exists": "true"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Effect",
+        "description": "Enable or disable the execution of the policy"
+      },
+      "allowedValues": [
+        "AuditIfNotExists",
+        "Disabled"
+      ],
+      "defaultValue": "AuditIfNotExists"
+    }
+  }
+}
