@@ -1,0 +1,177 @@
+{
+    "if": {
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Web/sites/config"
+            },
+            {
+              "field": "type",
+              "equals": "Microsoft.Web/sites/slots/config"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "field": "Microsoft.Web/sites/config/minTlsVersion",
+                  "exists": "true"
+                },
+                {
+                  "field": "Microsoft.Web/sites/config/minTlsVersion",
+                  "notEquals": "1.2"
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "field": "Microsoft.Web/sites/slots/config/minTlsVersion",
+                  "exists": "true"
+                },
+                {
+                  "field": "Microsoft.Web/sites/slots/config/minTlsVersion",
+                  "notEquals": "1.2"
+                }
+              ]
+            }
+          ]
+        },
+
+
+
+        {
+            "anyOf": [
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Web/sites/config/web.minTlsVersion",
+                    "exists": "true"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/config/web.minTlsVersion",
+                    "notEquals": "1.2"
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Web/sites/slots/config/web.minTlsVersion",
+                    "exists": "true"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/slots/config/web.minTlsVersion",
+                    "notEquals": "1.2"
+                  }
+                ]
+              }
+            ]
+          },
+
+
+
+
+          {
+            "anyOf": [
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Web/sites/config/scmMinTlsVersion",
+                    "exists": "true"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/config/scmMinTlsVersion",
+                    "notEquals": "1.2"
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Web/sites/slots/config/scmMinTlsVersion",
+                    "exists": "true"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/slots/config/scmMinTlsVersion",
+                    "notEquals": "1.2"
+                  }
+                ]
+              }
+            ]
+          },
+
+
+
+
+
+
+        {
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Web/sites"
+                },
+                {
+                  "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                  "exists": "true"
+                },
+                {
+                  "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                  "notEquals": "1.2"
+                }
+              ]
+            }
+          ]
+        },
+
+
+        {
+            "anyOf": [
+              {
+                "allOf": [
+                  {
+                    "field": "type",
+                    "equals": "Microsoft.Web/sites"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/siteConfig.scmMinTlsVersion",
+                    "exists": "true"
+                  },
+                  {
+                    "field": "Microsoft.Web/sites/siteConfig.scmMinTlsVersion",
+                    "notEquals": "1.2"
+                  }
+                ]
+              }
+            ]
+          },
+
+
+
+
+
+        {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Web/sites/config"
+            },
+            {
+              "field": "Microsoft.Web/sites/config/minTlsVersion",
+              "notEquals": "1.2"
+            }
+          ]
+        }
+      ]
+    },
+    "then": {
+      "effect": "deny"
+    }
+  }

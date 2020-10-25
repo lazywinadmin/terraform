@@ -1,0 +1,9 @@
+{
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "effect to apply",
+        "description": "effect to apply"
+      }
+    }
+  }
