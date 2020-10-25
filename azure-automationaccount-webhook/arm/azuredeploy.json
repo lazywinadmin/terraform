@@ -1,0 +1,46 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "automationaccountname": {
+            "type": "string",
+            "metadata": {
+                "description": "The list of comma separated items."
+            }
+        },
+        "runbookname": {
+            "type": "string",
+            "metadata": {
+                "description": "The list of comma separated items."
+            }
+        },
+        "webhookname": {
+            "type": "string",
+            "metadata": {
+                "description": "The list of comma separated items."
+            }
+        },
+        "webhookuri": {
+            "type": "string",
+            "metadata": {
+                "description": "The list of comma separated items."
+            }
+        }
+    },
+    "resources": [
+      {
+        "name": "[parameters('automationaccountname')]/[parameters('webhookname')]",
+        "type": "Microsoft.Automation/automationAccounts/webhooks",
+        "apiVersion": "2015-10-31",
+        "properties": {
+          "isEnabled": true,
+          "uri": "[parameters('webhookuri')]",
+          "expiryTime": "2028-01-01T00:00:00.000+00:00",
+          "parameters": {},
+          "runbook": {
+            "name": "[parameters('runbookname')]"
+          }
+        }
+      }
+    ]
+  }
