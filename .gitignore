@@ -9,3 +9,4 @@ versions.tf
 *.tfstate.backup
 *.pub
 *.tfplan
+/_ARCHIVE/*
