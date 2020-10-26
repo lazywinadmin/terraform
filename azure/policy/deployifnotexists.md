@@ -6,6 +6,10 @@ the who should be control via AAD or RBAC
 
 alias is a property
 
+# Notes
+if existence rule is wrong, it will keep deploying ?
+
+
 # High level flow
 1. Create Policy Definition, this contains:
    1. the compliance conditions
@@ -178,7 +182,8 @@ CanDelegate        : False
 
 # Create Remediation Tasks
 $rem=start-AzPolicyRemediation -Name "$($PolicyName)-remediation" -PolicyAssignmentId $assignment.PolicyAssignmentId -PolicyDefinitionReferenceId $assignment.Properties.PolicyDefinitionId
-# This remediate all the resources currently deployed
+
+# This remediate all the non-compliant resources currently deployed
 <#
 Id                          : /subscriptions/<sub_id>/providers/microsoft.policyinsights/remediations/test-deployifnotexist-locks_rg-re
                               mediation
@@ -198,7 +203,19 @@ ResourceDiscoveryMode       : ExistingNonCompliant
 
 #>
 
+# you can force a re-evaluation of the non-compliance detected using something like:
+# This took 20 minutes according to my tests
+Start-AzPolicyRemediation `
+-PolicyAssignmentId $policyAssignmentId `
+-Name "remediation_$(get-date -format 'yyyyMMdd_HHmmss')" `
+-AsJob -ResourceDiscoveryMode ReEvaluateCompliance -scope $scope
 
+#you can start remediation on a resource that you just deployed (not detected as non-compliant yet)
+# This took ~10 min according to my tests
+Start-AzPolicyRemediation `
+-PolicyAssignmentId $policyAssignmentId `
+-Name "remediation_$(get-date -format 'yyyyMMdd_HHmmss')" `
+-AsJob -ResourceDiscoveryMode ReEvaluateCompliance -scope /subscriptions/b70ae6c2-7420-4191-8671-bc8caaf7cd48/resourceGroups/test-appservice3manual/providers/Microsoft.Web/sites/test-webapp6
 ```
 
 
