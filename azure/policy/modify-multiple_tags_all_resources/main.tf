@@ -1,5 +1,5 @@
 locals {
-    policyname = "test-tag_allres"
+    policyname = "test-multitag_allres"
     mgmtgroupname = ""
 }
 
@@ -8,6 +8,10 @@ provider "azurerm" {
 }
 
 provider "local" {
+}
+
+data azurerm_resource_group "example" {
+  name = "pol-test-multitag_allres-rg"
 }
 
 resource "azurerm_policy_definition" "example" {
@@ -24,7 +28,7 @@ resource "azurerm_policy_definition" "example" {
 
 resource "azurerm_policy_assignment" "example" {
   name                 = "pol-${local.policyname}"
-  scope                = azurerm_resource_group.example.id
+  scope                = data.azurerm_resource_group.example.id
   policy_definition_id = azurerm_policy_definition.example.id
   description          = "pol-${local.policyname}"
   display_name         = "pol-${local.policyname}"
@@ -41,10 +45,22 @@ METADATA
 
   parameters = <<PARAMETERS
 {
-  "tagName": {
-    "value": "mytagtest"
+  "tagName1": {
+    "value": "mytagA"
   },
-  "tagValue": {
+  "tagValue1": {
+    "value": "123"
+  },
+  "tagName2": {
+    "value": "mytagB"
+  },
+  "tagValue2": {
+    "value": "123"
+  },
+  "tagName3": {
+    "value": "mytagC"
+  },
+  "tagValue3": {
     "value": "123"
   }
 }
@@ -63,10 +79,11 @@ resource "azurerm_policy_remediation" "example" {
   scope                = azurerm_policy_assignment.example.scope
   policy_assignment_id = azurerm_policy_assignment.example.id
   location_filters     = []
+  resource_discovery_mode = "ReEvaluateCompliance"
 }
 
-# Rg to test if this work
-resource "azurerm_resource_group" "example" {
-  name     = "pol-${local.policyname}-rg"
-  location = "west us"
-}
+# # Rg to test if this work
+# resource "azurerm_resource_group" "example" {
+#   name     = "pol-${local.policyname}-rg"
+#   location = "west us"
+# }

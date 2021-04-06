@@ -1,0 +1,50 @@
+{
+  "tagName1": {
+     "type": "String",
+     "metadata": {
+        "displayName": "Tag Name",
+        "description": "Name of the tag, such as 'environment'"
+     },
+     "defaultValue": "tagName1"
+  },
+  "tagValue1": {
+     "type": "String",
+     "metadata": {
+        "displayName": "Tag Value",
+        "description": "Value of the tag, such as 'production'"
+     },
+     "defaultValue": "tagValue1"
+  },
+  "tagName2": {
+      "type": "String",
+      "metadata": {
+         "displayName": "Tag Name",
+         "description": "Name of the tag, such as 'environment'"
+      },
+      "defaultValue": "tagName2"
+   },
+   "tagValue2": {
+      "type": "String",
+      "metadata": {
+         "displayName": "Tag Value",
+         "description": "Value of the tag, such as 'production'"
+      },
+      "defaultValue": "tagValue2"
+   },
+   "tagName3": {
+      "type": "String",
+      "metadata": {
+         "displayName": "Tag Name",
+         "description": "Name of the tag, such as 'environment'"
+      },
+      "defaultValue": "tagName3"
+   },
+   "tagValue3": {
+      "type": "String",
+      "metadata": {
+         "displayName": "Tag Value",
+         "description": "Value of the tag, such as 'production'"
+      },
+      "defaultValue": "tagValue3"
+   }
+}

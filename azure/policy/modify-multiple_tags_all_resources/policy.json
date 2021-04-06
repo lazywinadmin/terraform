@@ -1,0 +1,43 @@
+{
+  "if": {
+   "allOf": [
+      {
+         "field": "[concat('tags[', parameters('tagName1'), ']')]",
+         "notEquals": "[parameters('tagValue1')]"
+      },
+      {
+         "field": "[concat('tags[', parameters('tagName2'), ']')]",
+         "notEquals": "[parameters('tagValue2')]"
+      },
+      {
+         "field": "[concat('tags[', parameters('tagName3'), ']')]",
+         "notEquals": "[parameters('tagValue3')]"
+      }
+   ]
+  },
+  "then": {
+     "effect": "modify",
+     "details": {
+        "roleDefinitionIds": [
+           "/providers/microsoft.authorization/roleDefinitions/4a9ae827-6dc8-4573-8ac7-8239d42aa03f"
+        ],
+        "operations": [
+           {
+              "operation": "addOrReplace",
+              "field": "[concat('tags[', parameters('tagName1'), ']')]",
+              "value": "[parameters('tagValue1')]"
+           },
+           {
+            "operation": "addOrReplace",
+            "field": "[concat('tags[', parameters('tagName2'), ']')]",
+            "value": "[parameters('tagValue2')]"
+         },
+         {
+            "operation": "addOrReplace",
+            "field": "[concat('tags[', parameters('tagName3'), ']')]",
+            "value": "[parameters('tagValue3')]"
+         }
+        ]
+     }
+  }
+}
