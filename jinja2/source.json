@@ -1,0 +1,17 @@
+{
+    "exclusions": {
+        "Python": [
+            {
+                "scope": "/sub/1234"
+            },
+            {
+                "scope": "/sub/5678"
+            }
+        ],
+        "Java": [
+            {
+
+            }
+        ]
+    }
+}
