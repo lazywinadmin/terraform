@@ -1,0 +1,9 @@
+privatednszones:
+  - name: privatelink.mongo.cosmos.azure.com
+    vnet_links:
+      hub1: /subscriptions/<sub_id>/resourceGroups/privatednszone/providers/Microsoft.Network/virtualNetworks/privatednszone-vnet
+      hub2: /subscriptions/<sub_id>/resourceGroups/privatednszone/providers/Microsoft.Network/virtualNetworks/privatednszone2-vnet
+  - name: privatelink.documents.azure.com
+    vnet_links:
+      hub1: /subscriptions/<sub_id>/resourceGroups/privatednszone/providers/Microsoft.Network/virtualNetworks/privatednszone-vnet
+      hub2: /subscriptions/<sub_id>/resourceGroups/privatednszone/providers/Microsoft.Network/virtualNetworks/privatednszone2-vnet
